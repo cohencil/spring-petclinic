@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.owner;
 
+import io.prometheus.client.Counter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,6 +39,7 @@ import java.util.Map;
  */
 @Controller
 class OwnerController {
+    static final Counter counter = Counter.build().name("owner_total").help("Total owner.").register();
 
     private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
     private final OwnerRepository owners;
@@ -65,6 +67,8 @@ class OwnerController {
         if (result.hasErrors()) {
             return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
         } else {
+            counter.inc();
+
             this.owners.save(owner);
             return "redirect:/owners/" + owner.getId();
         }

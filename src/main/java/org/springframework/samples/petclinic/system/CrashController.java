@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.system;
 
+import io.prometheus.client.Counter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,8 +31,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 class CrashController {
 
+    static final Counter counter = Counter.build().name("crashes_total").help("Total crashes").register();
+
     @GetMapping("/oups")
     public String triggerException() {
+        counter.inc();
+
         throw new RuntimeException(
                 "Expected: controller used to showcase what " + "happens when an exception is thrown");
     }
