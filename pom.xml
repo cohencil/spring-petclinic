@@ -140,6 +140,18 @@
           <artifactId>simpleclient_pushgateway</artifactId>
           <version>0.1.0</version>
       </dependency>
+      <!-- Servlet Exporter-->
+      <dependency>
+          <groupId>io.prometheus</groupId>
+          <artifactId>simpleclient_servlet</artifactId>
+          <version>0.1.0</version>
+      </dependency>
+      <!-- SpringBoot Collector -->
+      <dependency>
+          <groupId>io.prometheus</groupId>
+          <artifactId>simpleclient_spring_boot</artifactId>
+          <version>0.1.0</version>
+      </dependency>
   </dependencies>
 
   <build>
